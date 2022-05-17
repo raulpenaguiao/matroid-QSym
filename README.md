@@ -1,5 +1,11 @@
-# matroid-QSym
+***
+# Computing Quasi-symmetric functions on Matroids #
+---
+
 Python scripts used to compute chromatic invariants on matroids
+
+
+## Packages ##
 
 ### Set compositions ###
 This file lists all set compositions of a given size, and provides a handful of functions that allows us to manipulate them
@@ -10,12 +16,9 @@ This file gives us functions to compute QSym and WQSym functions from matroids, 
 ### Schubert matroids ###
 This computes the basis of a schubert matroid
 
-***
-Computing Quasi-symmetric functions on Matroids
----
 
 
-### Known bugs and future features ###
+## Known bugs and future features ##
 
  - There is still no function to compute the WQSym 
  - How to run me
