@@ -1,4 +1,6 @@
 import set_compositions
+import numpy as np
+
 
 ##CODE CREATED BY RAUL PENAGUIAO
 ##May 2022
@@ -244,10 +246,16 @@ def convert_to_Mathematica_matrix(n, WQSym = True):
     s += "}"
     return [cols, s]
 
-[cols, s] = convert_to_Mathematica_matrix(5, True)
-print(cols)
-print(s)
+#[cols, s] = convert_to_Mathematica_matrix(6, True)
+#print(cols)
+#print(s)
+def experiment(n):
+    cols, mat = matrix_WQSym_coeff(n)
+    r = np.linalg.matrix_rank(np.array(mat))
+    return r
 
+for i in range(2,66):
+    print("For n = ", i, " rank is = ", experiment(i))
 
 """
 RANK and NULLITY of the map to WQSym:
@@ -257,6 +265,10 @@ n = 2 | r = 2 | n = 1 | set compositions = 3
 n = 3 | r = 5 | n = 8 | set compositions = 13
 n = 4 | r = 12| n = 63| set compositions = 75
 n = 5 | r = 27| n =514| set compositions = 541
+n = 6 | r = 58| n = | set composition = 4683 
+n = 7 | r =121| n = | set composition = 47293
+CONJECTURE
+n = 8 | r =248| n = | set compositions = 545835
 
 n = 0 | r = 1 | n = 0 | compositions = 1 
 n = 1 | r = 1 | n = 0 | compositions = 1
