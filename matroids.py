@@ -1,6 +1,6 @@
 import set_compositions
 
-##CODE CREATES BY RAUL PENAGUIAO
+##CODE CREATED BY RAUL PENAGUIAO
 ##May 2022
 
 
@@ -89,6 +89,22 @@ def schubert_generic(opi, S, dict_map):
                 if R == []:
                     break
     return True
+
+"""
+PREP
+P: two lists A, B with ordered elements, it is supposed to represent a bipartite graph between A and B if bj <= ai
+R: returns "HALT" if there is more than one maximal matching
+   returns the maximal ordered sublist of A that matches uniquely to B
+E: 
+    A = [1,2] B = [2, 3] returns [1, 2]
+    A = [1, 2, 4] B = [3, 4] returns "HALT"
+    A = [1, 3, 4] B = [2, 4] returns [3, 4]
+
+
+def matching(A, B):
+
+
+
 
 
 ##print(schubert_generic("1,3|2", ["1", "3"], {"1":1, "2":2, "3":3}))
