@@ -20,7 +20,6 @@ This computes the basis of a schubert matroid
 
 ## Known bugs and future features ##
 
- - There is still no function to compute the WQSym 
  - How to run me
  - Examples for given matroids
  - Optimize to compute WQSym by using "opi <= otau and opi is M-generic implies otau is M-generic"
