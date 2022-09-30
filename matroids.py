@@ -1,5 +1,6 @@
 import set_compositions
 import numpy as np
+import sets as SP
 
 
 ##CODE CREATED BY RAUL PENAGUIAO
@@ -14,13 +15,14 @@ Code created to manipulate matroids and create schubert matroids
 """
 PREP
 P: vecs is a list of vectors, where the order is very important, S is a sublist of vectors
-thatR: returns a set of bases
+that
+R: returns a set of bases
 """
 def schubert_matroid(S, vecs):
     n = len(S)
     basis = []
-    for subset in subsets_numb(vecs, n):
-        if compare(subset, S):
+    for subset in SP.subsets_numb(vecs, n):
+        if SP.compare(subset, S):
             basis += [subset]
     return basis
 
@@ -28,6 +30,9 @@ def schubert_matroid(S, vecs):
 Compares two lists
 Assumes that these lists have the same size
 assumes that lists are ordered
+"""
+
+
 """
 def compare(A, B):
     for (a, b) in zip(A, B):
@@ -56,7 +61,7 @@ def subsets(vecs):
         ans += [A]
         it += 1
     return ans
-
+"""
 
 """
 returns true or false, wether opi is SM(S)-generic or not
@@ -96,18 +101,13 @@ def schubert_generic(opi, S, dict_map):
 """
 
 def schubert_generic(opi, S, dict_map):
-    #print("Computing matroid Delta_", opi, " SM(", S, ")")
     parts = opi.split("|")
     R = [s for s in S] #creates a copy of S that we can manipulate without change the input
     for part in parts:
-        #print(" - Computing part = ", part)
         T = unique_matching(R, part.split(","), dict_map)
-        #print(" - unique matching? ", T)
         if T == "HALT":#if there is more than one basis
             return False
         #in this case there is a unique basis, so we remove it from R
-        #print("R = ", R)
-        #print("T = ", T)
         R = [r for r in R if not(r  in T)]
     return True
 
@@ -202,7 +202,7 @@ def matrix_WQSym_coeff(n):
     set_comps.sort(key = set_compositions.alpha)
     set_comps.sort(key = lambda x :  len( set_compositions.alpha(x)))
     x = len(set_comps)
-    subs =  subsets(vecs)
+    subs = SP.subsets(vecs)
     y = len(subs)
     ans = [[0 for j in range(x)] for i in range(y)]
     for (i, opi) in enumerate(set_comps):
@@ -210,6 +210,25 @@ def matrix_WQSym_coeff(n):
             if schubert_generic(opi, S, dict_map):
                 ans[j][i] = 1
     return [set_comps, ans]
+
+
+
+def WQSym_chromatic_function(S):
+    dict_map = {str(k) : k for k in range(1, n+1)  }
+    vecs = [str(k) for k in range(1, n+1)]
+    set_comps = list(set_compositions.generate_set_compositions(vecs))
+    set_comps.sort(key = set_compositions.alpha)
+    set_comps.sort(key = lambda x :  len( set_compositions.alpha(x)))
+    x = len(set_comps)
+    subs =  subsets(vecs)
+    y = len(subs)
+    ans = [[0 for j in range(x)] for i in range(y)]
+    for (i, opi) in enumerate(set_comps):
+        if schubert_generic(opi, S, dict_map):
+            ans[i] = 1
+    return [set_comps, ans]
+
+
 
 
 def matrix_QSym_coeff(n):
@@ -254,8 +273,8 @@ def experiment(n):
     r = np.linalg.matrix_rank(np.array(mat))
     return r
 
-for i in range(2,66):
-    print("For n = ", i, " rank is = ", experiment(i))
+#for i in range(2,66):
+#    print("For n = ", i, " rank is = ", experiment(i))
 
 """
 RANK and NULLITY of the map to WQSym:
