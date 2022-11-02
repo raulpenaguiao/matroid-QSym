@@ -22,6 +22,7 @@ def matrix_WQSym_coeff(n):
     return [set_comps, ans, subs]
 
 
+
 def WQSym_chromatic_function(S):
     dict_map = {str(k) : k for k in range(1, n+1)  }
     vecs = [str(k) for k in range(1, n+1)]
@@ -36,7 +37,6 @@ def WQSym_chromatic_function(S):
         if MT.schubert_generic(opi, S, dict_map):
             ans[i] = 1
     return [set_comps, ans, subs]
-
 
 
 
@@ -60,9 +60,9 @@ def matrix_QSym_coeff(n):
 
 def convert_to_Mathematica_matrix(n, WQSym = True):
     if WQSym:
-        [cols, mat] = matrix_WQSym_coeff(n)
+        [cols, mat, subs] = matrix_WQSym_coeff(n)
     else:
-        [cols, mat] = matrix_QSym_coeff(n)
+        [cols, mat, subs] = matrix_QSym_coeff(n)
     s = "{"
     for line in mat:
         s += "{"
@@ -72,7 +72,8 @@ def convert_to_Mathematica_matrix(n, WQSym = True):
         s += "}, "
     s = s[:len(s)-2]
     s += "}"
-    return [cols, s]
+    return [cols, s, subs]
+
 
 
 #[cols, s] = convert_to_Mathematica_matrix(6, True)
@@ -118,41 +119,108 @@ n = 6 | r = | n = | compositions = 32
 
 """
 Now we will try to print the rows of the matrix, but only those rows that are not repeated, and with the 1 -> 0 manipulation that we talked on the 28th of Oct
-
 """
 
-n = 3
-s_c, mat, sets = matrix_WQSym_coeff(n)
 
-def row_red(mat):
-    l = len(mat)
-    c = len(mat[1])
-    return [mat[1]] + [[mat[1][i] - mat[j][i] for i in range(c)] for j in range(1, l)]
+def sub_matrix(lines, cols, i_lines, i_cols, mat):
+    m = [[ mat[j][i] for i in cols] for j in lines]
+    i_l = [i_lines[i] for i in lines]
+    i_c = [i_cols[i] for i in cols]
+    return [i_c, m, i_l]
 
-def matrix_permutation(mat, lis_row, lis_col):
-    return [ [ mat[i][j] for j in lis_col] for i in lis_row]
 
-mat = row_red(mat)
-columns = [7, 5, 6, 4, 0]
-rows = [0, 4, 5, 2, 6]
-s_c = [s_c[i] for i in columns]
-sets = [sets[i] for i in rows]
-mat = matrix_permutation(mat, rows, columns)
-print(sets)
+
+def inv_01(mat):
+    return[[ 1 - mat[j][i] for i in range(len(mat[0]))] for j in range(len(mat))]
+
+
+n = 2
+print(" n = ", n, " and the matrix is = ")
+s_c, mat, subs = matrix_WQSym_coeff(n)
+
+"""
 print(s_c)
+print(subs)
+for c in range(len(mat)):
+    print(mat[c])
+"""
+
+"""
+lines = [k for k in range(len(subs))]
+cols = [k for k in range(len(s_c))]
+print(lines)
+print(cols)
+"""
+
+lines = [0, 2]
+cols = [0, 2]
+
+s_c, mat, subs = sub_matrix(lines, cols, subs, s_c, mat)
+mat = inv_01(mat)
+print(s_c)
+print(subs)
 for c in range(len(mat)):
     print(mat[c])
 
-n = 4
-s_c, mat, sets = matrix_WQSym_coeff(n)
-mat = row_red(mat)
-columns = [51, 46, 47, 42, 43, 37, 38, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 39, 40, 41, 44, 45, 48, 49, 50, 51]
-rows = [0, 8, 9, 4, 5, 12, 13, 6, 10, 11, 14]
-mat = matrix_permutation(mat, rows, columns)
 
 
-print(sets)
+n = 3
+print(" n = ", n, " and the matrix is = ")
+s_c, mat, subs = matrix_WQSym_coeff(n)
+"""
 print(s_c)
+print(subs)
+for c in range(len(mat)):
+    print(mat[c])
+"""
+
+"""
+lines = [k for k in range(len(subs))]
+cols = [k for k in range(len(s_c))]
+
+print(lines)
+print(cols)
+"""
+
+lines = [0, 4, 6, 5, 2]
+cols = [5, 2, 1, 0, 7]
+
+s_c, mat, subs = sub_matrix(lines, cols, subs, s_c, mat)
+mat = inv_01(mat)
+print(s_c)
+print(subs)
+for c in range(len(mat)):
+    print(mat[c])
+
+
+
+n = 4
+print(" n = ", n, " and the matrix is = ")
+s_c, mat, subs = matrix_WQSym_coeff(n)
+"""
+print(s_c)
+print(subs)
+for c in range(len(mat)):
+    print(mat[c])
+"""
+
+"""
+lines = [k for k in range(len(subs))]
+cols = [k for k in range(len(s_c))]
+
+print(lines)
+print(cols)
+"""
+
+
+lines = [0, 14, 6, 13, 11, 5, 8, 9, 4, 2, 10, 12]
+cols = [19, 20, 21, 18, 17, 8, 48, 6, 5, 10, 11, 51]
+
+
+s_c, mat, subs = sub_matrix(lines, cols, subs, s_c, mat)
+mat = inv_01(mat)
+print(s_c)
+print(subs)
 for c in range(len(mat)):
     print(mat[c])
 
