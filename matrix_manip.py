@@ -12,7 +12,7 @@ def matrix_WQSym_coeff(n):
     set_comps.sort(key = set_compositions.alpha)
     set_comps.sort(key = lambda x :  len( set_compositions.alpha(x)))
     x = len(set_comps)
-    subs = SP.subsets(vecs)
+    subs = SP.subsets(vecs)[1:]
     y = len(subs)
     ans = [[0 for j in range(x)] for i in range(y)]
     for (i, opi) in enumerate(set_comps):
@@ -107,7 +107,7 @@ r = 2**n-n
 
 n = 0 | r = 1 | n = 0 | compositions = 1 
 n = 1 | r = 1 | n = 0 | compositions = 1
-n = 2 | r = 2 | n = 0 | compositions = 2
+n = 2 | r = 2 | lin = 0 | compositions = 2
 n = 3 | r = 4 | n = 0 | compositions = 4
 n = 4 | r = 8 | n = 0 | compositions = 8
 n = 5 | r = 16| n = 0 | compositions = 16
@@ -136,7 +136,13 @@ def inv_01(mat):
 
 n = 2
 print(" n = ", n, " and the matrix is = ")
-s_c, mat, subs = matrix_WQSym_coeff(n)
+s_c, mat, subs = matrix_WQSym_coeff(2)
+def pma(sc, s, m):
+	print(sc)
+	print(s)
+	for c in range(len(m)):
+		print(m[c])
+
 
 """
 print(s_c)
@@ -152,7 +158,7 @@ print(lines)
 print(cols)
 """
 
-lines = [0, 2]
+lines = [0, 1]
 cols = [0, 2]
 
 s_c, mat, subs = sub_matrix(lines, cols, subs, s_c, mat)
@@ -182,7 +188,7 @@ print(lines)
 print(cols)
 """
 
-lines = [0, 4, 6, 5, 2]
+lines = [0, 3, 5, 6, 1]
 cols = [5, 2, 1, 0, 7]
 
 s_c, mat, subs = sub_matrix(lines, cols, subs, s_c, mat)
@@ -213,9 +219,54 @@ print(cols)
 """
 
 
-lines = [0, 14, 6, 13, 11, 5, 8, 9, 4, 2, 10, 12]
+lines = [0, 13, 5, 12, 10, 4, 7, 8, 3, 1, 9, 11]
 cols = [19, 20, 21, 18, 17, 8, 48, 6, 5, 10, 11, 51]
 
+
+s_c, mat, subs = sub_matrix(lines, cols, subs, s_c, mat)
+mat = inv_01(mat)
+print(s_c)
+print(subs)
+for c in range(len(mat)):
+    print(mat[c])
+
+st = "-"*99
+print(st)
+
+s_c, mat, subs = matrix_WQSym_coeff(4)
+cols = [i for i in range(len(s_c))]
+cols = cols[:-23]
+lines = [i for i in range(len(subs))]
+
+def n_of_1s(j):
+	return -sum([mat[i][j] for i in range(len(lines))])
+def row_sum(i):
+	return -sum([mat[i][j] for j in range(len(cols))])
+#lines = sorted(lines, key = row_sum)
+#cols = sorted(cols, key = n_of_1s)
+
+s_c, mat, subs = sub_matrix(lines, cols, subs, s_c, mat)
+mat = inv_01(mat)
+print(s_c)
+print(subs)
+for c in range(len(mat)):
+    print(mat[c])
+
+#s_c, mat, subs = matrix_WQSym_coeff(4)
+#mat = inv_01(mat)
+#pma(s_c, subs, mat)
+
+s_c, mat, subs = matrix_WQSym_coeff(5)
+cols = [i for i in range(len(s_c))]
+cols = cols[:-119]
+lines = [i for i in range(len(subs))]
+
+def n_of_1s(j):
+	return -sum([mat[i][j] for i in range(len(lines))])
+def row_sum(i):
+	return -sum([mat[i][j] for j in range(len(cols))])
+
+cols = sorted(cols, key = n_of_1s)
 
 s_c, mat, subs = sub_matrix(lines, cols, subs, s_c, mat)
 mat = inv_01(mat)

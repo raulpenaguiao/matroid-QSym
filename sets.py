@@ -16,6 +16,9 @@ assumes that lists are ordered
 Given two lists A, B, checks if A > B in the Gale order
 """
 def compare(A, B):
+    if not len(A) == len(B):
+    	print("This is a serious error in  -sets.py file - sets to compare do not have the same length, A = ", A, " and B = ", B, " do not trust these computations")
+    	return False
     for (a, b) in zip(A, B):
         if a > b:
             return False

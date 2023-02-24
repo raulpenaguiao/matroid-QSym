@@ -22,86 +22,15 @@ def schubert_matroid(S, vecs):
     n = len(S)
     basis = []
     for subset in SP.subsets_numb(vecs, n):
-        if SP.compare(subset, S):
+        if SP.compare(S, subset):
             basis += [subset]
     return basis
 
-"""
-Compares two lists
-Assumes that these lists have the same size
-assumes that lists are ordered
-"""
-
-
-"""
-def compare(A, B):
-    for (a, b) in zip(A, B):
-        if a > b:
-            return False
-    return True
-
-
-def subsets_numb(vecs, k):
-    ans = subsets(vecs)
-    return [subset for subset in ans if len(subset) == k]
-
-
-def subsets(vecs):
-    it = 0
-    pow2 = [1]
-    n = len(vecs)
-    ans = []
-    for i in range(n):
-        pow2 += [pow2[-1]*2]
-    while it < pow2[-1]:
-        A = []
-        for i in range(n):
-            if (it//pow2[i])%2 == 1:
-                A +=[ vecs[i]]
-        ans += [A]
-        it += 1
-    return ans
-"""
-
-"""
-returns true or false, wether opi is SM(S)-generic or not
-opi is a set composition, written of the form "str1,str2|str3,str4|str5"
-that is, parts are separated by |, elements are separated by , and elements are strings that do not contain , or |
-the parts are assumed to come with the elements ordered in increasing order
-S is assumed to come with the elements ordered in increasing order
-dict_map is a map that sents each string to the position corresponding to the string
-"""
-"""
-EARLY VERSION
-def schubert_generic(opi, S, dict_map):
-    parts = opi.split("|")
-    T = []
-    R = [s for s in S]
-    for part in parts:
-        R += [t for t in T]
-        R.sort(key = lambda x:dict_map[x])
-        T = []
-        if R == []: #here our set S is empty, so there is nothing else to check. It's better to check out here than latter in the code, 
-            ##so we can freely access R[0] 
-            return True
-        els = part.split(",")
-        while els != []:
-            if dict_map[R[0]] < dict_map[els[0]]:
-                T += R.pop(0)
-                if R == []:
-                    break
-            elif len(els) > 1 and dict_map[els[1]] <= dict_map[R[0]]:
-                return False
-            else:
-                els.pop(0)
-                R.pop(0)
-                if R == []:
-                    break
-    return True
-"""
 
 def schubert_generic(opi, S, dict_map):
+    #opi = opi_r[::-1]
     parts = opi.split("|")
+    parts.reverse()
     R = [s for s in S] #creates a copy of S that we can manipulate without change the input
     for part in parts:
         T = unique_matching(R, part.split(","), dict_map)
