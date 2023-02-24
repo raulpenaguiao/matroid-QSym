@@ -1,0 +1,160 @@
+\documentclass[12pt]{amsart}
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage{lineno}
+\usepackage[margin=3cm]{geometry}
+\usepackage[all,cmtip, color,matrix,arrow]{xy}
+\usepackage{amsaddr}
+
+\usepackage{amsmath}%To use \text 
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
+\crefname{thm}{Theorem}{Theorems}
+%\usepackage{bbold}
+\usepackage[export]{adjustbox}
+\usepackage{todonotes}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{aliascnt}
+\newaliascnt{eqfloat}{equation}
+\newfloat{eqfloat}{h}{eqflts}
+\floatname{eqfloat}{Equation}
+\usepackage{dirtytalk}
+\usepackage[mathscr]{euscript}
+
+\newcommand*{\ORGeqfloat}{}
+\let\ORGeqfloat\eqfloat
+\def\eqfloat{%
+  \let\ORIGINALcaption\caption
+  \def\caption{%
+    \addtocounter{equation}{-1}%
+    \ORIGINALcaption
+  }%
+  \ORGeqfloat
+}
+\newcommand{\raul}[1]{\todo[color=green!30,inline]{Raul: #1}}
+\newcommand{\sophie}[1]{\todo[color=red!30,inline]{Carlo: #1}}
+
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lm}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{defin}[thm]{Definition}
+\newtheorem{smpl}[thm]{Example}
+\newtheorem{quest}[thm]{Question}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{rem}[thm]{Remark}
+\crefname{lm}{Lemma}{Lemmas}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{defin}{Definition}{Definitions}
+\crefname{rem}{Remark}{Remarks}
+
+\newcommand{\parpi}{\boldsymbol{\pi}}
+\newcommand{\partau}{\boldsymbol{\tau}}
+\newcommand{\makepar}{\boldsymbol{\lambda}}
+
+
+\DeclareMathOperator{\Alg}{\mathrm{Alg}}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\comu}{comu}
+\DeclareMathOperator{\Orth}{Orth}
+\DeclareMathOperator{\rk}{\mathrm{rk}}
+\DeclareMathOperator{\cano}{cano}
+\DeclareMathOperator{\dpt}{\mathbf{depth}}
+\DeclareMathOperator{\Func}{\mathrm{Func}}
+\DeclareMathOperator{\spn}{\mathrm{span}}
+\DeclareMathOperator{\cone}{\mathrm{cone}}
+\DeclareMathOperator{\inc}{\mathrm{inc}}
+\newcommand{\eval}{\mathrm{ev}} 
+
+%set partitions
+\newcommand{\splamb}{\vec{\boldsymbol{\lambda}}}
+\newcommand{\sptau}{\vec{\boldsymbol{\tau}}}
+\newcommand{\spmu}{\vec{\boldsymbol{\mu}}}
+
+%set compositions
+\newcommand{\oPi}{\mathbf{C}}
+\newcommand{\opi}{\vec{\boldsymbol{\pi}}}
+\newcommand{\otau}{\vec{\boldsymbol{\tau}}}
+\newcommand{\olambda}{\vec{\boldsymbol{\gamma}}}
+
+
+%Schubert matroids
+\newcommand{\SM}{\mathcal S \mathcal M}
+\newcommand{\leqG}{\underset{\text{Gale}}{\leq}}
+\newcommand{\Mat}{\mathrm{Mat}}
+
+%vectors
+\newcommand{\w}{\mathsf{w}}
+
+%characters
+\newcommand{\el}{\mathsf{e}}
+\newcommand{\il}{\mathsf{i}}
+\newcommand{\jl}{\mathsf{j}}
+
+\begin{document}
+
+%% Title, authors and addresses
+\title{Chromatic properties of Schubert matroids} % Subtitle
+
+\author{Raul Penaguiao, Sophie Rehberg}
+\email{raul.penaguia@mis.mpg.de}
+\address{Max Planck Institute Leipzig, FU Berlin}
+\keywords{}
+\subjclass[2010]{}
+\date{\today} % Date
+
+\begin{abstract}
+
+\end{abstract}
+
+\maketitle
+\section{Introduction}
+
+\section{Preliminaries}
+
+
+\section{Rank computation}
+
+
+
+\begin{thm}
+Let $T = \{t_1 < \dots < t_l\}$ be a subset of $[n]$ that is not of the form $T = \{1, \dots, k\}$ for any $k = 0, \dots, n$.
+Define $S = [n] \setminus T = \{s_1 < \dots < s_{n-l}\}$ and 
+$$ \opi_t \coloneqq s_{n-l} | s_{n-l+1} | \dots | s_2 | s_1 t_l | t_{l+1}| \dots |t_2 | t_1 \, .$$
+
+Then we have the following:
+\begin{itemize}
+\item If $|A| < l$ then $\opi $ is $\SM (A)$ - proper.
+
+\item If $|A| = l$ and $T \not\leqG A $ then $\opi$ is $\SM (A) $ - proper.
+
+\item The set composition $\opi_T$ is not $\SM(T)$- proper.
+\end{itemize}
+\end{thm}
+
+
+\begin{cor}
+The map $\boldsymbol{\Psi}_{\Mat_n} $ has rank $2^n-n+1$.
+\end{cor}
+
+
+
+\bibliographystyle{alpha}
+\bibliography{bibli}
+
+
+
+\end{document}
